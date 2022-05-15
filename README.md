@@ -166,15 +166,21 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
+```
 ### Setup Kubernetes Cluster
 ```
 kubeadm init --cri-socket unix:///var/run/cri-dockerd.sock --pod-network-cidr=10.244.0.0/16
 kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
-# add worker role
+```
+### add worker role
+```
 kubectl taint nodes --all node-role.kubernetes.io/control-plane- node-role.kubernetes.io/master-
 kubectl label node ubuntu-demo node-role.kubernetes.io/worker=worker
-# get node
+```
+### get node
+```
 kubectl get node
+```
 
 ## Task 10: deploy the hello world container
 https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/
