@@ -184,8 +184,7 @@ kubectl get node
 
 ## Task 10: deploy the hello world container
 https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/
-create a deployment with 2 replicas running
-kubectl apply -f hello-application.yaml
+create a deployment with 2 replicas running, ``kubectl apply -f hello-application.yaml``
 ```
 apiVersion: apps/v1
 kind: Deployment
@@ -208,8 +207,7 @@ spec:
             - containerPort: 8081
               protocol: TCP
 ```
-create a service to expose 8081 to virual machine 31080 port
-kubectl apply -f hello-application-service.yaml
+create a service to expose 8081 to virual machine 31080 port, ``kubectl apply -f hello-application-service.yaml``
 ```
 kind: Service
 apiVersion: v1
@@ -225,10 +223,14 @@ spec:
     nodePort: 31080
   type: NodePort
 ```
-
+On the host machine, access http://127.0.0.1:31080/ .
 ## Task 11: install kubernetes dashboard
 https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+Download kubernetes dashboard deploy yaml file, add NodePort configurations
+```
 wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
+```
+recommended.yaml content
 ```
 kind: Service
 apiVersion: v1
@@ -246,9 +248,7 @@ spec:
     k8s-app: kubernetes-dashboard
   type: NodePort
 ```
-
-kubectl apply recommended.yaml
-open https://127.0.0.1:31081/ in a host browser. Kubernetes Dashboard sign in page is shown.
+run ``kubectl apply recommended.yaml``, open https://127.0.0.1:31081/ in a host browser. Kubernetes Dashboard sign in page is shown.
 
 ## Task 12: generate token for dashboard login in task 11
 https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
@@ -283,3 +283,8 @@ kubectl create token admin-user -n kubernetes-dashboard
 ```
 Token can be used to sign into kubernetes dashboard.
 ## Task 13: publish your work
+https://stackoverflow.com/questions/22265837/transfer-git-repositories-from-gitlab-to-github-can-we-how-to-and-pitfalls-i
+```
+git remote add github git@github.com:ErnestDu/go-web-hello-world.git
+git push --mirror github
+```
